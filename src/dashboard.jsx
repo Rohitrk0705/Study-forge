@@ -578,19 +578,29 @@ function CalendarTab({tasks}){
 // ─── Main Dashboard ───────────────────────────────────────────────────────────
 export default function Dashboard(){
   const navigate=useNavigate()
-  const email=localStorage.getItem("email")||"Student"
+  const email=localStorage.getItem("userEmail")||"Student"
   const name=email.split("@")[0]
   const [activeTab,setActiveTab]=useState("timetable")
   const [tasks,setTasks]=useState(()=>{try{return JSON.parse(localStorage.getItem("tasks")||"[]")}catch{return[]}})
   const [newTask,setNewTask]=useState({title:"",subject:"",date:"",priority:"medium",type:"assignment"})
   const [subjects,setSubjectsState]=useState(()=>{try{return JSON.parse(localStorage.getItem("subjects")||"[]")}catch{return[]}})
   const [newSubject,setNewSubject]=useState("")
-  const [notes,setNotes]=useState(()=>localStorage.getItem("notes")||"")
+  const [notes, setNotes] = useState("");
   const [sidebarOpen,setSidebarOpen]=useState(true)
 
   useEffect(()=>{localStorage.setItem("tasks",JSON.stringify(tasks))},[tasks])
   useEffect(()=>{localStorage.setItem("subjects",JSON.stringify(subjects))},[subjects])
-  useEffect(()=>{localStorage.setItem("notes",notes)},[notes])
+  useEffect(() => {
+  const email = localStorage.getItem("userEmail");
+
+  if (!email) return;
+
+  fetch("https://study-forge-4.onrender.com/save-notes", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, notes })
+  });
+}, [notes]);
 
   // Browser notifications for due today
   useEffect(()=>{
@@ -612,6 +622,21 @@ export default function Dashboard(){
     request()
   // eslint-disable-next-line
   },[])
+  useEffect(() => {
+  const email = localStorage.getItem("userEmail");
+
+  if (!email) return;
+
+  fetch("https://study-forge-4.onrender.com/login-notes", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email })
+  })
+    .then(res => res.json())
+    .then(data => {
+      setNotes(data.notes || "");
+    });
+}, []);
 
   function logout(){localStorage.removeItem("email");navigate("/")}
   function addTask(task){setTasks(prev=>[...prev,task])}

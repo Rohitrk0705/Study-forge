@@ -18,7 +18,7 @@ function Login() {
       })
       const data = await response.json()
       if (response.ok) {
-        localStorage.setItem("email", email)
+        localStorage.setItem("userEmail", email)
         navigate("/dashboard")
       } else {
         alert(data.message)
