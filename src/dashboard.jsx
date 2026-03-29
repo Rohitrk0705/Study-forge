@@ -336,12 +336,12 @@ function SubjectModal({subject,tasks,onAddTask,onDeleteTask,onClose}){
 function TimetableTab({tasks,onAddTask,onDeleteTask,onSubjectsUpdate,subjects}){
   const [rawText,setRawText]=useState("")
   const [showPaste,setShowPaste]=useState(false)
-  const [courses,setCourses]=useState(()=>{try{return JSON.parse(localStorage.getItem("tt_courses")||"[]")}catch{return[]}})
+  const [courses,setCourses]=useState(()=>{try{return JSON.parse(localStorage.getItem(`tt_courses_${email}`)||"[]")}catch{return[]}})
   const [view,setView]=useState("grid")
   const [selected,setSelected]=useState(null)
   const [msg,setMsg]=useState("")
 
-  useEffect(()=>{localStorage.setItem("tt_courses",JSON.stringify(courses))},[courses])
+  useEffect(()=>{localStorage.setItem(`tt_courses_${email}`, JSON.stringify(courses))},[courses])
 
   function handleParse(){
     const parsed=parseVITText(rawText)
@@ -405,7 +405,7 @@ function TimetableTab({tasks,onAddTask,onDeleteTask,onSubjectsUpdate,subjects}){
             📋 {courses.length>0?"Re-import":"Import"} Timetable
           </button>
           {courses.length>0&&<button className="cgpa-btn-ghost" style={{fontSize:"12px",padding:"8px 12px"}}
-            onClick={()=>{if(window.confirm("Clear all timetable data?")){setCourses([]);localStorage.removeItem("tt_courses")}}}>
+            onClick={()=>{if(window.confirm("Clear all timetable data?")){setCourses([]);localStorage.removeItem(`tt_courses_${email}`)}}}>
             Clear
           </button>}
         </div>
@@ -581,15 +581,15 @@ export default function Dashboard(){
   const email=localStorage.getItem("userEmail")||"Student"
   const name=email.split("@")[0]
   const [activeTab,setActiveTab]=useState("timetable")
-  const [tasks,setTasks]=useState(()=>{try{return JSON.parse(localStorage.getItem("tasks")||"[]")}catch{return[]}})
+  const [tasks,setTasks]=useState(()=>{try{return JSON.parse(localStorage.getItem(`tasks_${email}`)||"[]")}catch{return[]}})
   const [newTask,setNewTask]=useState({title:"",subject:"",date:"",priority:"medium",type:"assignment"})
-  const [subjects,setSubjectsState]=useState(()=>{try{return JSON.parse(localStorage.getItem("subjects")||"[]")}catch{return[]}})
+  const [subjects,setSubjectsState]=useState(()=>{try{return JSON.parse(localStorage.getItem(`subjects_${email}`)||"[]")}catch{return[]}})
   const [newSubject,setNewSubject]=useState("")
   const [notes, setNotes] = useState("");
   const [sidebarOpen,setSidebarOpen]=useState(true)
 
-  useEffect(()=>{localStorage.setItem("tasks",JSON.stringify(tasks))},[tasks])
-  useEffect(()=>{localStorage.setItem("subjects",JSON.stringify(subjects))},[subjects])
+  useEffect(()=>{localStorage.setItem(`tasks_${email}`, JSON.stringify(tasks))},[tasks])
+  useEffect(()=>{localStorage.setItem(`subjects_${email}`, JSON.stringify(subjects))},[subjects])
   useEffect(() => {
   const email = localStorage.getItem("userEmail");
 
