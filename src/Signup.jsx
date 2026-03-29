@@ -21,7 +21,7 @@ function Signup() {
         alert("Account created! 💖")
         navigate("/")
       } else {
-        alert(data.message)
+        alert(data.message || data.error)
       }
     } finally {
       setLoading(false)
