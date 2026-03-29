@@ -11,7 +11,7 @@ function Login() {
     e.preventDefault()
     setLoading(true)
     try {
-      const response = await fetch("https://study-forge-4.onrender.com", {
+      const response = await fetch("https://study-forge-4.onrender.com/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
