@@ -338,7 +338,14 @@ function TimetableTab({tasks,onAddTask,onDeleteTask,onSubjectsUpdate,subjects}){
   const email = localStorage.getItem("userEmail");
   const [rawText,setRawText]=useState("")
   const [showPaste,setShowPaste]=useState(false)
-  const [courses,setCourses]=useState(()=>{try{return JSON.parse(localStorage.getItem(`tt_courses_${email}`)||"[]")}catch{return[]}})
+  const [courses, setCourses] = useState(() => {
+  try {
+    const email = localStorage.getItem("userEmail"); // ✅ MOVE INSIDE
+    return JSON.parse(localStorage.getItem(`tt_courses_${email}`) || "[]");
+  } catch {
+    return [];
+  }
+});
   const [view,setView]=useState("grid")
   const [selected,setSelected]=useState(null)
   const [msg,setMsg]=useState("")
