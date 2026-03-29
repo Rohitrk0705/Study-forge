@@ -333,7 +333,9 @@ function SubjectModal({subject,tasks,onAddTask,onDeleteTask,onClose}){
 }
 
 // ─── Timetable Tab ────────────────────────────────────────────────────────────
+
 function TimetableTab({tasks,onAddTask,onDeleteTask,onSubjectsUpdate,subjects}){
+  const email = localStorage.getItem("userEmail");
   const [rawText,setRawText]=useState("")
   const [showPaste,setShowPaste]=useState(false)
   const [courses,setCourses]=useState(()=>{try{return JSON.parse(localStorage.getItem(`tt_courses_${email}`)||"[]")}catch{return[]}})
@@ -362,7 +364,7 @@ function TimetableTab({tasks,onAddTask,onDeleteTask,onSubjectsUpdate,subjects}){
     if(newSubs.length > 0 && onSubjectsUpdate){
       onSubjectsUpdate(prev => {
         const merged = [...prev, ...newSubs]
-        localStorage.setItem("subjects", JSON.stringify(merged))
+       localStorage.setItem(`subjects_${email}`, JSON.stringify(merged))
         return merged
       })
     }
