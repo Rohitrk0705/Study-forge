@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(-45deg, #1a1a1a, #111111, #1f1f1f, #0f0f0f);
+  background-size: 400% 400%;
+  animation: gradientShift 12s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Smooth moving background */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+.hero-title {
+  font-size: 70px;
+  font-weight: 900;
+  color: black;
+  background: orange;
+  padding: 20px 50px;
+  border-radius: 15px;
+  letter-spacing: 2px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+  transition: 0.4s;
+}
+
+.hero-title:hover {
+  transform: scale(1.05);
+}
+
+.tagline {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #bbb;
+  letter-spacing: 1px;
+}
+
+.card {
+  background: #121212;
+  padding: 40px;
+  border-radius: 15px;
+  width: 350px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+input {
+  margin: 12px 0;
+  padding: 12px;
+  width: 100%;
+  border-radius: 8px;
+  border: none;
+  background: #1e1e1e;
+  color: white;
+}
+
+input:focus {
+  outline: none;
+  border: 2px solid orange;
+}
+
+button {
+  margin-top: 18px;
+  padding: 12px;
+  width: 100%;
+  border-radius: 8px;
+  border: none;
+  background: orange;
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: translateY(-3px);
+}
