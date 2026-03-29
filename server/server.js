@@ -6,7 +6,11 @@ const app = express();
 const PORT = 8081;
 
 // Middleware
-app.use(cors());
+const cors = require("cors")
+
+app.use(cors({
+  origin: "*"
+}))
 app.use(express.json());
 
 // 🔥 Replace with YOUR real MongoDB connection string
