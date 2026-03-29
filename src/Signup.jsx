@@ -11,7 +11,7 @@ function Signup() {
     e.preventDefault()
     setLoading(true)
     try {
-      const response = await fetch("http://localhost:8081/signup", {
+      const response = await fetch("https://study-forge-4.onrender.com/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
